@@ -1,49 +1,58 @@
+<p align="center">
+  <a href="./README.md"><img src="https://flagcdn.com/24x18/us.png" width="24" height="18" alt="" /> <b>English</b></a>
+  &nbsp;·&nbsp;
+  <a href="./README.pt-BR.md"><img src="https://flagcdn.com/24x18/br.png" width="24" height="18" alt="" /> Português</a>
+</p>
+
 # aeo-geo-bestpractices
 
-> Skill para agentes de IA que deixa qualquer landing page ou app web **encontrável por buscadores e por IAs** (SEO + AEO + GEO) e mira **98–100 em todas as categorias do Google Lighthouse 13**, inclusive a nova categoria *Agentic Browsing*.
+> An AI agent skill that makes any landing page or web app **discoverable by search engines and AI assistants** (SEO + AEO + GEO) and targets **98–100 in every Google Lighthouse 13 category**, including the new *Agentic Browsing* category.
 
-Funciona com **Claude Code**, **Cursor**, **Google Antigravity**, **Codex**, **OpenCode** e qualquer agente compatível com o padrão aberto [Agent Skills](https://agentskills.io) (`SKILL.md`).
+Works with **Claude Code**, **Cursor**, **Google Antigravity**, **Codex**, **OpenCode** and any agent that supports the open [Agent Skills](https://agentskills.io) standard (`SKILL.md`).
 
 ```bash
 npx skills add micaelgomestavares/aeo-geo-bestpractices
 ```
 
+> [!NOTE]
+> The agent instructions (`SKILL.md` and guides) are written in Brazilian Portuguese. Agents read them without issues and reply in whatever language you use.
+
 ---
 
-## O que a skill faz
+## What it does
 
-Quando você pede ao agente algo como *"melhora o SEO desse site"*, *"quero aparecer no ChatGPT/Perplexity"*, *"cria o llms.txt"* ou *"bate 100 no Lighthouse"*, ele segue um playbook em 5 etapas:
+When you ask your agent something like *"improve this site's SEO"*, *"I want to show up on ChatGPT/Perplexity"*, *"create the llms.txt"* or *"get 100 on Lighthouse"*, it follows a 5-step playbook:
 
-| Etapa | O que é aplicado |
+| Step | What gets applied |
 | --- | --- |
-| **1. SEO técnico** | `<title>` e `description` otimizados, `canonical` + `hreflang`, Open Graph, Twitter Cards, `robots.txt` e `sitemap.xml` com imagens e vídeo. |
-| **2. AEO** (*Answer Engine Optimization*) | Um único grafo `@graph` em JSON-LD conectando `WebSite`, `Person`/`Organization`, `WebPage`, `Product`, `Course`, `VideoObject` e `FAQPage`, mais um fallback `<noscript>` semântico para crawlers que não executam JavaScript. |
-| **3. GEO** (*Generative Engine Optimization*) | `/llms.txt` + `<link rel="help">`, manifesto `/.well-known/ard.json` (Agent Resource Discovery v0.91) e liberação explícita de `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot`, `ClaudeBot`, `Google-Extended` e outros no `robots.txt`. |
-| **4. Performance e acessibilidade** | Preload do LCP com `fetchpriority="high"`, `srcSet`/`sizes` calibrados para o DPR 1.75 do Lighthouse Mobile, TBT zero (CSS na GPU + `IntersectionObserver`, `Lenis` carregado sob demanda, timers isolados) e contraste WCAG AA. |
-| **5. Validação** | Script que roda o Lighthouse em **Desktop e Mobile** e lista cada auditoria que ainda não está com nota máxima. |
+| **1. Technical SEO** | Optimized `<title>` and `description`, `canonical` + `hreflang`, Open Graph, Twitter Cards, `robots.txt` and `sitemap.xml` with image and video entries. |
+| **2. AEO** (*Answer Engine Optimization*) | A single JSON-LD `@graph` connecting `WebSite`, `Person`/`Organization`, `WebPage`, `Product`, `Course`, `VideoObject` and `FAQPage`, plus a semantic `<noscript>` fallback for crawlers that don't run JavaScript. |
+| **3. GEO** (*Generative Engine Optimization*) | `/llms.txt` + `<link rel="help">`, a `/.well-known/ard.json` manifest (Agent Resource Discovery v0.91) and explicit `robots.txt` access for `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot`, `ClaudeBot`, `Google-Extended` and others. |
+| **4. Performance & accessibility** | LCP preload with `fetchpriority="high"`, `srcSet`/`sizes` tuned for Lighthouse Mobile's 1.75 DPR, zero TBT (GPU CSS + `IntersectionObserver`, on-demand `Lenis`, isolated timers) and WCAG AA contrast. |
+| **5. Validation** | A script that runs Lighthouse on **Desktop and Mobile** and lists every audit that isn't at full score yet. |
 
-Antes de alterar qualquer coisa, o agente confirma o **domínio canônico** e pergunta se você quer o **FAQ visível** na página ou apenas nos dados estruturados.
+Before changing anything, the agent confirms your **canonical domain** and asks whether you want the **FAQ visible** on the page or only in the structured data.
 
 ---
 
-## Instalação
+## Installation
 
-### Via `skills` CLI (recomendado)
+### With the `skills` CLI (recommended)
 
-Requer [Node.js](https://nodejs.org) 18+.
+Requires [Node.js](https://nodejs.org) 18+.
 
 ```bash
-# No projeto atual (o CLI pergunta para quais agentes instalar)
+# Current project (the CLI asks which agents to install for)
 npx skills add micaelgomestavares/aeo-geo-bestpractices
 
-# Global, disponível em todos os seus projetos
+# Global, available in all your projects
 npx skills add micaelgomestavares/aeo-geo-bestpractices -g
 
-# Para um agente específico
+# For a specific agent
 npx skills add micaelgomestavares/aeo-geo-bestpractices -a claude-code
 ```
 
-Também dá para usar a URL completa:
+The full URL works too:
 
 ```bash
 npx skills add https://github.com/micaelgomestavares/aeo-geo-bestpractices
@@ -51,14 +60,14 @@ npx skills add https://github.com/micaelgomestavares/aeo-geo-bestpractices
 
 ### Manual
 
-Clone o repositório e copie a pasta para o diretório de skills do seu agente:
+Clone the repository into your agent's skills directory:
 
-| Agente | Projeto | Global |
+| Agent | Project | Global |
 | --- | --- | --- |
 | Claude Code | `.claude/skills/aeo-geo-bestpractices/` | `~/.claude/skills/aeo-geo-bestpractices/` |
-| Google Antigravity / genérico | `.agents/skills/aeo-geo-bestpractices/` | `~/.gemini/config/skills/aeo-geo-bestpractices/` |
+| Google Antigravity / generic | `.agents/skills/aeo-geo-bestpractices/` | `~/.gemini/config/skills/aeo-geo-bestpractices/` |
 
-Para outros agentes, prefira o `skills` CLI, que já sabe o caminho certo de cada um.
+For other agents, prefer the `skills` CLI, which knows the right path for each one.
 
 ```bash
 git clone https://github.com/micaelgomestavares/aeo-geo-bestpractices.git ~/.claude/skills/aeo-geo-bestpractices
@@ -66,83 +75,83 @@ git clone https://github.com/micaelgomestavares/aeo-geo-bestpractices.git ~/.cla
 
 ---
 
-## Como usar
+## Usage
 
-Depois de instalada, é só pedir em linguagem natural. O agente ativa a skill sozinho:
+Once installed, just ask in plain language. The agent picks up the skill on its own:
 
 ```text
-Otimiza essa landing page para SEO, AEO e GEO e deixa ela 100 no Lighthouse.
+Optimize this landing page for SEO, AEO and GEO and get it to 100 on Lighthouse.
 ```
 
 ```text
-Cria o llms.txt e o ard.json desse site.
+Create the llms.txt and ard.json for this site.
 ```
 
-Em agentes com slash commands, você também pode chamar direto com `/aeo-geo-bestpractices`.
+In agents with slash commands, you can also call it directly with `/aeo-geo-bestpractices`.
 
-### Rodando o Lighthouse manualmente
+### Running Lighthouse manually
 
-O script de validação também pode ser usado sozinho:
+The validation script also works on its own:
 
 ```bash
-# Detecta a stack, roda `npm run build` e sobe o preview na porta 4173
-node <pasta-da-skill>/scripts/run-lighthouse.mjs
+# Detects the stack, runs `npm run build` and starts a preview server on port 4173
+node <skill-folder>/scripts/run-lighthouse.mjs
 
-# Pular o build (quando a saída do build já está atualizada)
-node <pasta-da-skill>/scripts/run-lighthouse.mjs --no-build
+# Skip the build (when the build output is already up to date)
+node <skill-folder>/scripts/run-lighthouse.mjs --no-build
 
-# Forçar a stack: angular | next | nuxt | astro | vite | static
-node <pasta-da-skill>/scripts/run-lighthouse.mjs --stack=angular
+# Force the stack: angular | next | nuxt | astro | vite | static
+node <skill-folder>/scripts/run-lighthouse.mjs --stack=angular
 
-# Qualquer URL (local ou em produção)
-node <pasta-da-skill>/scripts/run-lighthouse.mjs https://meusite.com.br
+# Any URL (local or production)
+node <skill-folder>/scripts/run-lighthouse.mjs https://mysite.com
 ```
 
-Ele exibe as notas de `performance`, `accessibility`, `best-practices`, `seo` e `agentic-browsing` e detalha o que falta corrigir. É preciso ter o Google Chrome instalado.
+It prints the `performance`, `accessibility`, `best-practices`, `seo` and `agentic-browsing` scores and details what's left to fix. Google Chrome must be installed.
 
 ---
 
-## Estrutura
+## Structure
 
 ```text
 aeo-geo-bestpractices/
-├── SKILL.md                  # Instruções que o agente segue
+├── SKILL.md                  # Instructions the agent follows
 ├── references/
-│   ├── templates.md          # Templates de JSON-LD, llms.txt, ard.json, robots.txt e sitemap.xml
-│   └── frameworks/           # Guias específicos por stack (Angular, Next.js, Nuxt, Astro...)
+│   ├── templates.md          # JSON-LD, llms.txt, ard.json, robots.txt and sitemap.xml templates
+│   └── frameworks/           # Stack-specific guides (Angular, Next.js, Nuxt, Astro...)
 └── scripts/
-    └── run-lighthouse.mjs    # Lighthouse automatizado (Desktop + Mobile)
+    └── run-lighthouse.mjs    # Automated Lighthouse (Desktop + Mobile)
 ```
 
 ---
 
-## Stacks suportadas
+## Supported stacks
 
-As regras de SEO, AEO e GEO valem para qualquer site. O agente detecta a stack do projeto e segue o guia específico, que cobre onde fica o `<head>` e a pasta pública, pré-renderização, imagens, TBT e o comando de preview:
+The SEO, AEO and GEO rules apply to any website. The agent detects your project's stack and follows its guide, which covers where the `<head>` and public folder live, prerendering, images, TBT and the preview command:
 
-| Stack | Guia | Preview no script |
+| Stack | Guide | Preview in the script |
 | --- | --- | --- |
-| Angular 17+ | [angular.md](./references/frameworks/angular.md) | `serve dist/<projeto>/browser` |
-| Next.js (App e Pages Router) | [nextjs.md](./references/frameworks/nextjs.md) | `next start` ou `serve out/` |
-| Nuxt 3/4 e Vue + Vite | [vue-nuxt.md](./references/frameworks/vue-nuxt.md) | servidor do Nuxt ou `vite preview` |
+| Angular 17+ | [angular.md](./references/frameworks/angular.md) | `serve dist/<project>/browser` |
+| Next.js (App and Pages Router) | [nextjs.md](./references/frameworks/nextjs.md) | `next start` or `serve out/` |
+| Nuxt 3/4 and Vue + Vite | [vue-nuxt.md](./references/frameworks/vue-nuxt.md) | Nuxt server or `vite preview` |
 | Astro | [astro.md](./references/frameworks/astro.md) | `astro preview` |
 | Vite + React | [vite-react.md](./references/frameworks/vite-react.md) | `vite preview` |
-| HTML estático | [html-estatico.md](./references/frameworks/html-estatico.md) | `serve .` |
+| Static HTML | [html-estatico.md](./references/frameworks/html-estatico.md) | `serve .` |
 
-Usa outra stack (SvelteKit, Remix, Gatsby...)? O agente aplica as regras gerais com base no guia mais parecido. Contribuições com novos guias são bem-vindas: basta criar `references/frameworks/<stack>.md` seguindo o formato dos existentes e adicionar a linha na tabela do `SKILL.md`.
-
----
-
-## Contribuindo
-
-Issues e pull requests são bem-vindos. Se uma regra ficou desatualizada (o Lighthouse e os crawlers de IA mudam rápido), abra uma issue com o link da mudança.
+Using another stack (SvelteKit, Remix, Gatsby...)? The agent applies the general rules using the closest guide. New guides are welcome: create `references/frameworks/<stack>.md` following the existing format and add a row to the table in `SKILL.md`.
 
 ---
 
-## Licença
+## Contributing
 
-[MIT](./LICENSE). Pode usar, modificar e redistribuir à vontade.
+Issues and pull requests are welcome. If a rule is out of date (Lighthouse and AI crawlers change fast), open an issue with a link to the change.
 
 ---
 
-Feito por [Micael Gomes](https://github.com/micaelgomestavares).
+## License
+
+[MIT](./LICENSE). Free to use, modify and redistribute.
+
+---
+
+Made by [Micael Gomes](https://github.com/micaelgomestavares).
