@@ -5,7 +5,7 @@
 Funciona com **Claude Code**, **Cursor**, **Google Antigravity**, **Codex**, **OpenCode** e qualquer agente compatível com o padrão aberto [Agent Skills](https://agentskills.io) (`SKILL.md`).
 
 ```bash
-npx skills add SEU-USUARIO/aeo-geo-bestpractices
+npx skills add micaelgomestavares/aeo-geo-bestpractices
 ```
 
 ---
@@ -34,19 +34,19 @@ Requer [Node.js](https://nodejs.org) 18+.
 
 ```bash
 # No projeto atual (o CLI pergunta para quais agentes instalar)
-npx skills add SEU-USUARIO/aeo-geo-bestpractices
+npx skills add micaelgomestavares/aeo-geo-bestpractices
 
 # Global, disponível em todos os seus projetos
-npx skills add SEU-USUARIO/aeo-geo-bestpractices -g
+npx skills add micaelgomestavares/aeo-geo-bestpractices -g
 
 # Para um agente específico
-npx skills add SEU-USUARIO/aeo-geo-bestpractices -a claude-code
+npx skills add micaelgomestavares/aeo-geo-bestpractices -a claude-code
 ```
 
 Também dá para usar a URL completa:
 
 ```bash
-npx skills add https://github.com/SEU-USUARIO/aeo-geo-bestpractices
+npx skills add https://github.com/micaelgomestavares/aeo-geo-bestpractices
 ```
 
 ### Manual
@@ -61,7 +61,7 @@ Clone o repositório e copie a pasta para o diretório de skills do seu agente:
 Para outros agentes, prefira o `skills` CLI, que já sabe o caminho certo de cada um.
 
 ```bash
-git clone https://github.com/SEU-USUARIO/aeo-geo-bestpractices.git ~/.claude/skills/aeo-geo-bestpractices
+git clone https://github.com/micaelgomestavares/aeo-geo-bestpractices.git ~/.claude/skills/aeo-geo-bestpractices
 ```
 
 ---
@@ -122,4 +122,4 @@ Issues e pull requests são bem-vindos. Se uma regra ficou desatualizada (o Ligh
 
 ---
 
-Feito por [Micael Gomes](https://github.com/SEU-USUARIO).
+Feito por [Micael Gomes](https://github.com/micaelgomestavares).
