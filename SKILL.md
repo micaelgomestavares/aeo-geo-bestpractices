@@ -1,7 +1,8 @@
 ---
 name: aeo-geo-bestpractices
 description: >-
-  Otimiza qualquer landing page ou aplicação web (React, Vite, Next.js, HTML) para
+  Otimiza qualquer landing page ou aplicação web (React, Vite, Next.js, Angular,
+  Vue, Nuxt, Astro, HTML) para
   atingir nota máxima (98-100) no Google Lighthouse 13 em Performance, Accessibility,
   Best Practices, SEO e Agentic Browsing, aplicando técnicas avançadas de SEO,
   AEO (Answer Engine Optimization) e GEO (Generative Engine Optimization para ChatGPT,
@@ -19,6 +20,23 @@ Caminhos: `<skill>` é a pasta onde este `SKILL.md` está localizado.
 ---
 
 ## 0. Alinhamento Rápido Antes de Executar
+
+### 0.1. Detecte a stack e leia o guia correspondente
+
+As regras deste arquivo valem para qualquer site. O que muda entre frameworks (onde fica o `<head>`, a pasta pública, como pré-renderizar, como otimizar imagens e evitar TBT, qual comando sobe o preview) está em `references/frameworks/`. Identifique a stack pelo projeto e **leia o guia antes de aplicar as etapas 1 a 5**:
+
+| Sinal no projeto | Stack | Guia |
+| --- | --- | --- |
+| `angular.json` ou `@angular/core` | Angular | [`references/frameworks/angular.md`](./references/frameworks/angular.md) |
+| `next.config.*` ou `next` | Next.js | [`references/frameworks/nextjs.md`](./references/frameworks/nextjs.md) |
+| `nuxt.config.*` ou `nuxt` / `vite.config.*` + `vue` | Nuxt / Vue + Vite | [`references/frameworks/vue-nuxt.md`](./references/frameworks/vue-nuxt.md) |
+| `astro.config.*` ou `astro` | Astro | [`references/frameworks/astro.md`](./references/frameworks/astro.md) |
+| `vite.config.*` + `react` | Vite + React | [`references/frameworks/vite-react.md`](./references/frameworks/vite-react.md) |
+| `index.html` sem framework | HTML estático | [`references/frameworks/html-estatico.md`](./references/frameworks/html-estatico.md) |
+
+Se a stack não estiver na lista (ex.: SvelteKit, Remix, Gatsby, WordPress), aplique as regras gerais deste arquivo e use o guia mais parecido como referência: frameworks com SSR/SSG seguem a lógica de Next/Nuxt; SPAs seguem a de Vite + React.
+
+### 0.2. Confirme com o usuário
 
 Antes de alterar o código, confirme (ou extraia do próprio projeto se já estiver explícito):
 1. **Domínio canônico de produção** (ex.: `https://meusite.com.br/`). Se ainda não houver domínio definido, pergunte ou use um placeholder claro e avise o usuário.
@@ -61,6 +79,7 @@ Motores de resposta precisam de **entidades conectadas** e **HTML semântico leg
      - `VideoObject` (`#video`) quando houver VSL ou vídeo de apresentação
      - `FAQPage` (`#faq`) com 4 a 6 perguntas reais de alta intenção de busca e respostas diretas e completas (40–70 palavras cada).
 2. **Fallback Semântico `<noscript>` para SPAs (React / Vue / Vite)**:
+   - Só se aplica a SPAs sem pré-renderização. Em Next.js, Nuxt, Astro, Angular com SSR/prerender e HTML estático, o HTML já chega completo e o `<noscript>` é desnecessário (veja o guia da stack).
    - Crawlers de LLMs (`GPTBot`, `ClaudeBot`, `PerplexityBot`, `OAI-SearchBot`) frequentemente fazem fetch apenas do HTML bruto e **não executam o bundle JavaScript**.
    - Em projetos SPA onde `<div id="root"></div>` vem vazio, adicione um bloco `<noscript><main>...</main></noscript>` no `index.html` contendo o `<h1>`, resumo da oferta, lista de entregáveis (`<ul><li>`) e link direto para o CTA/checkout.
    - **Importante para Performance**: Use `<noscript>` (e não elementos dentro de `<div id="root">` quando usar `createRoot().render()`), pois colocar DOM dentro de `#root` sem SSR faz o React desmontar e recriar toda a árvore no mount, atrasando o LCP e gerando TBT.
@@ -132,17 +151,20 @@ Para atingir **98–100 no Mobile (4G Simulado + 4x CPU Throttling)** e **100 no
 Sempre valide as alterações rodando o script automatizado da skill:
 
 ```bash
-# Projeto local (Vite): roda `npm run build` (se existir) e sobe o `vite preview` na porta 4173
+# Projeto local: detecta a stack, roda `npm run build` (se existir) e sobe o preview na porta 4173
 node <skill>/scripts/run-lighthouse.mjs
 
-# Pular o build (quando o `dist/` já está atualizado)
+# Pular o build (quando a saída do build já está atualizada)
 node <skill>/scripts/run-lighthouse.mjs --no-build
+
+# Forçar a stack se a detecção errar: angular | next | nuxt | astro | vite | static
+node <skill>/scripts/run-lighthouse.mjs --stack=angular
 
 # Testar uma URL específica (local ou produção), sem build nem preview
 node <skill>/scripts/run-lighthouse.mjs https://meusite.com.br
 ```
 
-- Sem URL, o script executa `npm run build` quando o `package.json` tiver um script `build`, sobe o servidor de preview (`vite preview`) e roda o **Google Lighthouse 13** em **Desktop** e **Mobile**. Com URL, testa direto o endereço informado.
+- Sem URL, o script detecta a stack, executa `npm run build` quando o `package.json` tiver um script `build`, sobe o servidor de preview adequado (`vite preview`, `next start`, `astro preview`, servidor do Nuxt ou `npx serve` na pasta de saída do Angular / HTML estático) e roda o **Google Lighthouse 13** em **Desktop** e **Mobile**. Com URL, testa direto o endereço informado.
 - Ao final, exibe a tabela de notas das 5 categorias (`performance`, `accessibility`, `best-practices`, `seo`, `agentic-browsing`) e lista detalhadamente qualquer auditoria que não tenha atingido nota máxima para correção imediata.
-- Requer o Google Chrome instalado. Em projetos que não usam Vite, suba o servidor do próprio framework (ex.: `next start`) e passe a URL como argumento.
+- Requer o Google Chrome instalado. Se o projeto precisar de um servidor próprio (SSR com adapter específico, backend customizado), suba-o manualmente e passe a URL como argumento.
 

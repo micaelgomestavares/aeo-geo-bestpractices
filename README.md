@@ -85,17 +85,20 @@ Em agentes com slash commands, você também pode chamar direto com `/aeo-geo-be
 O script de validação também pode ser usado sozinho:
 
 ```bash
-# Projeto Vite: roda `npm run build` e sobe o `vite preview` na porta 4173
+# Detecta a stack, roda `npm run build` e sobe o preview na porta 4173
 node <pasta-da-skill>/scripts/run-lighthouse.mjs
 
-# Pular o build (quando o dist/ já está atualizado)
+# Pular o build (quando a saída do build já está atualizada)
 node <pasta-da-skill>/scripts/run-lighthouse.mjs --no-build
+
+# Forçar a stack: angular | next | nuxt | astro | vite | static
+node <pasta-da-skill>/scripts/run-lighthouse.mjs --stack=angular
 
 # Qualquer URL (local ou em produção)
 node <pasta-da-skill>/scripts/run-lighthouse.mjs https://meusite.com.br
 ```
 
-Ele exibe as notas de `performance`, `accessibility`, `best-practices`, `seo` e `agentic-browsing` e detalha o que falta corrigir. É preciso ter o Google Chrome instalado. Em projetos que não usam Vite (ex.: Next.js), suba o servidor do framework e passe a URL.
+Ele exibe as notas de `performance`, `accessibility`, `best-practices`, `seo` e `agentic-browsing` e detalha o que falta corrigir. É preciso ter o Google Chrome instalado.
 
 ---
 
@@ -105,7 +108,8 @@ Ele exibe as notas de `performance`, `accessibility`, `best-practices`, `seo` e 
 aeo-geo-bestpractices/
 ├── SKILL.md                  # Instruções que o agente segue
 ├── references/
-│   └── templates.md          # Templates de JSON-LD, llms.txt, ard.json, robots.txt e sitemap.xml
+│   ├── templates.md          # Templates de JSON-LD, llms.txt, ard.json, robots.txt e sitemap.xml
+│   └── frameworks/           # Guias específicos por stack (Angular, Next.js, Nuxt, Astro...)
 └── scripts/
     └── run-lighthouse.mjs    # Lighthouse automatizado (Desktop + Mobile)
 ```
@@ -114,7 +118,18 @@ aeo-geo-bestpractices/
 
 ## Stacks suportadas
 
-React, Vite, Next.js, Vue e HTML estático. As regras de SEO, AEO e GEO valem para qualquer site. As dicas de performance têm atenção especial para SPAs.
+As regras de SEO, AEO e GEO valem para qualquer site. O agente detecta a stack do projeto e segue o guia específico, que cobre onde fica o `<head>` e a pasta pública, pré-renderização, imagens, TBT e o comando de preview:
+
+| Stack | Guia | Preview no script |
+| --- | --- | --- |
+| Angular 17+ | [angular.md](./references/frameworks/angular.md) | `serve dist/<projeto>/browser` |
+| Next.js (App e Pages Router) | [nextjs.md](./references/frameworks/nextjs.md) | `next start` ou `serve out/` |
+| Nuxt 3/4 e Vue + Vite | [vue-nuxt.md](./references/frameworks/vue-nuxt.md) | servidor do Nuxt ou `vite preview` |
+| Astro | [astro.md](./references/frameworks/astro.md) | `astro preview` |
+| Vite + React | [vite-react.md](./references/frameworks/vite-react.md) | `vite preview` |
+| HTML estático | [html-estatico.md](./references/frameworks/html-estatico.md) | `serve .` |
+
+Usa outra stack (SvelteKit, Remix, Gatsby...)? O agente aplica as regras gerais com base no guia mais parecido. Contribuições com novos guias são bem-vindas: basta criar `references/frameworks/<stack>.md` seguindo o formato dos existentes e adicionar a linha na tabela do `SKILL.md`.
 
 ---
 
