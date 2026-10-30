@@ -1,7 +1,19 @@
 <p align="center">
   <a href="./README.md"><img src="https://flagcdn.com/24x18/us.png" width="24" height="18" alt="" /> <b>English</b></a>
-  &nbsp;·&nbsp;
+  &nbsp;&middot;&nbsp;
   <a href="./README.pt-BR.md"><img src="https://flagcdn.com/24x18/br.png" width="24" height="18" alt="" /> Português</a>
+</p>
+
+<p align="center">
+  <img src="./assets/banner.png" alt="aeo-geo-bestpractices — SEO · AEO · GEO · Lighthouse 100" width="100%" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/micaelgomestavares/aeo-geo-bestpractices/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License" /></a>
+  <a href="https://agentskills.io"><img src="https://img.shields.io/badge/Agent_Skills-standard-black.svg" alt="Agent Skills" /></a>
+  <a href="https://developer.chrome.com/docs/lighthouse"><img src="https://img.shields.io/badge/Lighthouse-100%2F100-success.svg?logo=lighthouse" alt="Lighthouse 100" /></a>
+  <a href="https://github.com/micaelgomestavares/aeo-geo-bestpractices/stargazers"><img src="https://img.shields.io/github/stars/micaelgomestavares/aeo-geo-bestpractices?style=flat" alt="GitHub Stars" /></a>
+  <a href="https://github.com/micaelgomestavares/aeo-geo-bestpractices/issues"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" /></a>
 </p>
 
 # aeo-geo-bestpractices
@@ -27,7 +39,7 @@ When you ask your agent something like *"improve this site's SEO"*, *"I want to 
 | --- | --- |
 | **1. Technical SEO** | Optimized `<title>` and `description`, `canonical` + `hreflang`, Open Graph, Twitter Cards, `robots.txt` and `sitemap.xml` with image and video entries. |
 | **2. AEO** (*Answer Engine Optimization*) | A single JSON-LD `@graph` connecting `WebSite`, `Person`/`Organization`, `WebPage`, `Product`, `Course`, `VideoObject` and `FAQPage`, plus a semantic `<noscript>` fallback for crawlers that don't run JavaScript. |
-| **3. GEO** (*Generative Engine Optimization*) | `/llms.txt` + `<link rel="help">`, a `/.well-known/ard.json` manifest (Agent Resource Discovery v0.91) and explicit `robots.txt` access for `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot`, `ClaudeBot`, `Google-Extended` and others. |
+| **3. GEO** (*Generative Engine Optimization*) | `/llms.txt` + `<link rel="help">`, a `/.well-known/ard.json` manifest (Agent Resource Discovery v0.91) and explicit `robots.txt` access for `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot`, `Perplexity-SearchBot`, `ClaudeBot`, `Claude-SearchBot`, `anthropic-ai`, `Google-Extended`, `Applebot-Extended`, `Meta-ExternalAgent` and others. |
 | **4. Performance & accessibility** | LCP preload with `fetchpriority="high"`, `srcSet`/`sizes` tuned for Lighthouse Mobile's 1.75 DPR, zero TBT (GPU CSS + `IntersectionObserver`, on-demand `Lenis`, isolated timers) and WCAG AA contrast. |
 | **5. Validation** | A script that runs Lighthouse on **Desktop and Mobile** and lists every audit that isn't at full score yet. |
 
@@ -77,17 +89,22 @@ git clone https://github.com/micaelgomestavares/aeo-geo-bestpractices.git ~/.cla
 
 ## Usage
 
-Once installed, just ask in plain language. The agent picks up the skill on its own:
+Once installed, just ask in plain language (or use `/aeo-geo-bestpractices`). Here are **3 recommended prompts** to get the best results:
 
+#### 1. Quick Audit (Inspection only)
 ```text
-Optimize this landing page for SEO, AEO and GEO and get it to 100 on Lighthouse.
+Audit this project using the aeo-geo-bestpractices skill. List the current critical gaps for SEO, AEO, GEO and Lighthouse performance before making any changes.
 ```
 
+#### 2. Full Optimization (Production-ready)
 ```text
-Create the llms.txt and ard.json for this site.
+Apply the complete aeo-geo-bestpractices playbook to this project. Keep the visual design intact, configure the connected @graph JSON-LD, create llms.txt and ard.json, and tune image preloads.
 ```
 
-In agents with slash commands, you can also call it directly with `/aeo-geo-bestpractices`.
+#### 3. Lighthouse Validation & Benchmark
+```text
+Run the automated Lighthouse validation script for both mobile and desktop. Report any audit scoring below 100 and fix pending issues.
+```
 
 ### Running Lighthouse manually
 
@@ -116,6 +133,7 @@ It prints the `performance`, `accessibility`, `best-practices`, `seo` and `agent
 ```text
 aeo-geo-bestpractices/
 ├── SKILL.md                  # Instructions the agent follows
+├── assets/                   # Project banner and visual identity
 ├── references/
 │   ├── templates.md          # JSON-LD, llms.txt, ard.json, robots.txt and sitemap.xml templates
 │   └── frameworks/           # Stack-specific guides (Angular, Next.js, Nuxt, Astro...)

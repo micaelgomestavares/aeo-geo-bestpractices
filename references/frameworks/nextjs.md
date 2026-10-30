@@ -53,8 +53,11 @@ export const metadata: Metadata = {
 import type { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const aiBots = ['OAI-SearchBot', 'GPTBot', 'ChatGPT-User', 'PerplexityBot', 'ClaudeBot',
-    'anthropic-ai', 'Google-Extended', 'Applebot-Extended'];
+  const aiBots = [
+    'OAI-SearchBot', 'GPTBot', 'ChatGPT-User', 'PerplexityBot', 'Perplexity-SearchBot',
+    'ClaudeBot', 'Claude-SearchBot', 'anthropic-ai', 'Google-Extended', 'Applebot-Extended',
+    'Meta-ExternalAgent'
+  ];
   return {
     rules: [{ userAgent: '*', allow: '/' }, ...aiBots.map(userAgent => ({ userAgent, allow: '/' }))],
     sitemap: 'https://seudominio.com.br/sitemap.xml',

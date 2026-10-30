@@ -58,7 +58,7 @@ Consulte os templates prontos em [`references/templates.md`](./references/templa
    - Open Graph completo (`og:type`, `og:locale`, `og:site_name`, `og:title`, `og:description`, `og:url`, `og:image`, `og:image:width`, `og:image:height`, `og:image:alt`) e Twitter Cards (`summary_large_image`).
 2. **`public/robots.txt` Amigável para Buscadores e IAs**:
    - Nunca bloqueie bots de busca de IA se o objetivo for GEO. Libere explicitamente (`Allow: /`) para:
-     `Googlebot`, `Google-Extended`, `Bingbot`, `OAI-SearchBot`, `GPTBot`, `ChatGPT-User`, `PerplexityBot`, `ClaudeBot`, `anthropic-ai`, `Applebot-Extended`.
+     `Googlebot`, `Google-Extended`, `Bingbot`, `OAI-SearchBot`, `GPTBot`, `ChatGPT-User`, `PerplexityBot`, `Perplexity-SearchBot`, `ClaudeBot`, `Claude-SearchBot`, `anthropic-ai`, `Applebot-Extended`, `Meta-ExternalAgent`.
    - Aponte `Sitemap: https://dominio.com/sitemap.xml`.
 3. **`public/sitemap.xml` Rico (Imagens + Vídeo)**:
    - Inclua os namespaces `xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"` e `xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"` quando houver imagens de destaque e vídeo de vendas/apresentação.

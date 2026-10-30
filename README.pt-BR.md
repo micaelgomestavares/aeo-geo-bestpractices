@@ -1,8 +1,21 @@
 <p align="center">
   <a href="./README.md"><img src="https://flagcdn.com/24x18/us.png" width="24" height="18" alt="" /> English</a>
-  &nbsp;·&nbsp;
+  &nbsp;&middot;&nbsp;
   <a href="./README.pt-BR.md"><img src="https://flagcdn.com/24x18/br.png" width="24" height="18" alt="" /> <b>Português</b></a>
 </p>
+
+<p align="center">
+  <img src="./assets/banner.png" alt="aeo-geo-bestpractices — SEO · AEO · GEO · Lighthouse 100" width="100%" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/micaelgomestavares/aeo-geo-bestpractices/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Licença MIT" /></a>
+  <a href="https://agentskills.io"><img src="https://img.shields.io/badge/Agent_Skills-padrão-black.svg" alt="Agent Skills" /></a>
+  <a href="https://developer.chrome.com/docs/lighthouse"><img src="https://img.shields.io/badge/Lighthouse-100%2F100-success.svg?logo=lighthouse" alt="Lighthouse 100" /></a>
+  <a href="https://github.com/micaelgomestavares/aeo-geo-bestpractices/stargazers"><img src="https://img.shields.io/github/stars/micaelgomestavares/aeo-geo-bestpractices?style=flat" alt="GitHub Stars" /></a>
+  <a href="https://github.com/micaelgomestavares/aeo-geo-bestpractices/issues"><img src="https://img.shields.io/badge/PRs-bem--vindos-brightgreen.svg" alt="PRs Bem-vindos" /></a>
+</p>
+
 # aeo-geo-bestpractices
 
 > Skill para agentes de IA que deixa qualquer landing page ou app web **encontrável por buscadores e por IAs** (SEO + AEO + GEO) e mira **98–100 em todas as categorias do Google Lighthouse 13**, inclusive a nova categoria *Agentic Browsing*.
@@ -23,7 +36,7 @@ Quando você pede ao agente algo como *"melhora o SEO desse site"*, *"quero apar
 | --- | --- |
 | **1. SEO técnico** | `<title>` e `description` otimizados, `canonical` + `hreflang`, Open Graph, Twitter Cards, `robots.txt` e `sitemap.xml` com imagens e vídeo. |
 | **2. AEO** (*Answer Engine Optimization*) | Um único grafo `@graph` em JSON-LD conectando `WebSite`, `Person`/`Organization`, `WebPage`, `Product`, `Course`, `VideoObject` e `FAQPage`, mais um fallback `<noscript>` semântico para crawlers que não executam JavaScript. |
-| **3. GEO** (*Generative Engine Optimization*) | `/llms.txt` + `<link rel="help">`, manifesto `/.well-known/ard.json` (Agent Resource Discovery v0.91) e liberação explícita de `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot`, `ClaudeBot`, `Google-Extended` e outros no `robots.txt`. |
+| **3. GEO** (*Generative Engine Optimization*) | `/llms.txt` + `<link rel="help">`, manifesto `/.well-known/ard.json` (Agent Resource Discovery v0.91) e liberação explícita de `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot`, `Perplexity-SearchBot`, `ClaudeBot`, `Claude-SearchBot`, `anthropic-ai`, `Google-Extended`, `Applebot-Extended`, `Meta-ExternalAgent` e outros no `robots.txt`. |
 | **4. Performance e acessibilidade** | Preload do LCP com `fetchpriority="high"`, `srcSet`/`sizes` calibrados para o DPR 1.75 do Lighthouse Mobile, TBT zero (CSS na GPU + `IntersectionObserver`, `Lenis` carregado sob demanda, timers isolados) e contraste WCAG AA. |
 | **5. Validação** | Script que roda o Lighthouse em **Desktop e Mobile** e lista cada auditoria que ainda não está com nota máxima. |
 
@@ -73,21 +86,26 @@ git clone https://github.com/micaelgomestavares/aeo-geo-bestpractices.git ~/.cla
 
 ## Como usar
 
-Depois de instalada, é só pedir em linguagem natural. O agente ativa a skill sozinho:
+Depois de instalada, é só pedir em linguagem natural (ou usar `/aeo-geo-bestpractices`). Aqui estão **3 prompts recomendados** para extrair o máximo da skill:
 
+#### 1. Auditoria Rápida (Apenas inspeção)
 ```text
-Otimiza essa landing page para SEO, AEO e GEO e deixa ela 100 no Lighthouse.
+Audite esse projeto usando a skill aeo-geo-bestpractices. Liste os pontos críticos de SEO, AEO, GEO e performance antes de alterar qualquer código.
 ```
 
+#### 2. Implementação Completa (Pronto para produção)
 ```text
-Cria o llms.txt e o ard.json desse site.
+Aplique o playbook completo da skill aeo-geo-bestpractices mantendo o design visual intacto. Configure o @graph JSON-LD conectado, crie o llms.txt e ard.json, e calibre o preload de LCP.
 ```
 
-Em agentes com slash commands, você também pode chamar direto com `/aeo-geo-bestpractices`.
+#### 3. Validação e Benchmark no Lighthouse
+```text
+Execute a validação automatizada do Lighthouse em mobile e desktop, reporte auditorias abaixo de 100 e corrija as pendências identificadas.
+```
 
 ### Rodando o Lighthouse manualmente
 
-O script de validação também pode ser usado sozinho:
+O script de validação também pode ser usado sozinho no terminal:
 
 ```bash
 # Detecta a stack, roda `npm run build` e sobe o preview na porta 4173
@@ -112,6 +130,7 @@ Ele exibe as notas de `performance`, `accessibility`, `best-practices`, `seo` e 
 ```text
 aeo-geo-bestpractices/
 ├── SKILL.md                  # Instruções que o agente segue
+├── assets/                   # Banner e identidade visual do projeto
 ├── references/
 │   ├── templates.md          # Templates de JSON-LD, llms.txt, ard.json, robots.txt e sitemap.xml
 │   └── frameworks/           # Guias específicos por stack (Angular, Next.js, Nuxt, Astro...)
