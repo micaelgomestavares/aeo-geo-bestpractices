@@ -85,15 +85,17 @@ Em agentes com slash commands, você também pode chamar direto com `/aeo-geo-be
 O script de validação também pode ser usado sozinho:
 
 ```bash
-# Projeto Vite: rode o build antes, e o script sobe o `vite preview` na porta 4173
-npm run build
+# Projeto Vite: roda `npm run build` e sobe o `vite preview` na porta 4173
 node <pasta-da-skill>/scripts/run-lighthouse.mjs
+
+# Pular o build (quando o dist/ já está atualizado)
+node <pasta-da-skill>/scripts/run-lighthouse.mjs --no-build
 
 # Qualquer URL (local ou em produção)
 node <pasta-da-skill>/scripts/run-lighthouse.mjs https://meusite.com.br
 ```
 
-Ele exibe as notas de `performance`, `accessibility`, `best-practices`, `seo` e `agentic-browsing` e detalha o que falta corrigir. É preciso ter o Google Chrome instalado.
+Ele exibe as notas de `performance`, `accessibility`, `best-practices`, `seo` e `agentic-browsing` e detalha o que falta corrigir. É preciso ter o Google Chrome instalado. Em projetos que não usam Vite (ex.: Next.js), suba o servidor do framework e passe a URL.
 
 ---
 
@@ -119,6 +121,12 @@ React, Vite, Next.js, Vue e HTML estático. As regras de SEO, AEO e GEO valem pa
 ## Contribuindo
 
 Issues e pull requests são bem-vindos. Se uma regra ficou desatualizada (o Lighthouse e os crawlers de IA mudam rápido), abra uma issue com o link da mudança.
+
+---
+
+## Licença
+
+[MIT](./LICENSE). Pode usar, modificar e redistribuir à vontade.
 
 ---
 

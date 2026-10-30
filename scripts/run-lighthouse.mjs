@@ -1,16 +1,25 @@
 #!/usr/bin/env node
 import { spawn, execSync } from "node:child_process";
-import { readFileSync, mkdirSync, rmSync } from "node:fs";
+import { readFileSync, mkdirSync, rmSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
-const targetUrl = process.argv[2] || "http://localhost:4173";
-const shouldSpawnPreview = !process.argv[2];
+const args = process.argv.slice(2);
+const skipBuild = args.includes("--no-build");
+const urlArg = args.find(a => !a.startsWith("--"));
+const targetUrl = urlArg || "http://localhost:4173";
+const shouldSpawnPreview = !urlArg;
 const outDir = join(process.cwd(), ".lighthouse-tmp");
-
-mkdirSync(outDir, { recursive: true });
 
 let server = null;
 if (shouldSpawnPreview) {
+  const pkgPath = join(process.cwd(), "package.json");
+  const hasBuildScript =
+    existsSync(pkgPath) && Boolean(JSON.parse(readFileSync(pkgPath, "utf8")).scripts?.build);
+  if (hasBuildScript && !skipBuild) {
+    console.log("▶ Executando build de produção (npm run build) ...");
+    execSync("npm run build", { stdio: "inherit" });
+  }
+
   console.log("▶ Subindo servidor de preview em http://localhost:4173 ...");
   server = spawn("npx", ["vite", "preview", "--port", "4173", "--strictPort"], {
     stdio: "ignore",
@@ -47,6 +56,7 @@ function printReportSummary(label, reportPath) {
 }
 
 try {
+  mkdirSync(outDir, { recursive: true });
   const desktopJson = join(outDir, "lighthouse-desktop.json");
   const mobileJson = join(outDir, "lighthouse-mobile.json");
 

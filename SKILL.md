@@ -132,8 +132,17 @@ Para atingir **98–100 no Mobile (4G Simulado + 4x CPU Throttling)** e **100 no
 Sempre valide as alterações rodando o script automatizado da skill:
 
 ```bash
+# Projeto local (Vite): roda `npm run build` (se existir) e sobe o `vite preview` na porta 4173
 node <skill>/scripts/run-lighthouse.mjs
+
+# Pular o build (quando o `dist/` já está atualizado)
+node <skill>/scripts/run-lighthouse.mjs --no-build
+
+# Testar uma URL específica (local ou produção), sem build nem preview
+node <skill>/scripts/run-lighthouse.mjs https://meusite.com.br
 ```
 
-- O script executa o build (se aplicável), sobe o servidor de preview (ou testa a URL informada), roda o **Google Lighthouse 13** em **Desktop** e **Mobile**, exibe a tabela de notas das 5 categorias (`performance`, `accessibility`, `best-practices`, `seo`, `agentic-browsing`) e lista detalhadamente qualquer auditoria que não tenha atingido nota máxima para correção imediata.
+- Sem URL, o script executa `npm run build` quando o `package.json` tiver um script `build`, sobe o servidor de preview (`vite preview`) e roda o **Google Lighthouse 13** em **Desktop** e **Mobile**. Com URL, testa direto o endereço informado.
+- Ao final, exibe a tabela de notas das 5 categorias (`performance`, `accessibility`, `best-practices`, `seo`, `agentic-browsing`) e lista detalhadamente qualquer auditoria que não tenha atingido nota máxima para correção imediata.
+- Requer o Google Chrome instalado. Em projetos que não usam Vite, suba o servidor do próprio framework (ex.: `next start`) e passe a URL como argumento.
 
