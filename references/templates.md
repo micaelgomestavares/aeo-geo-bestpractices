@@ -265,6 +265,8 @@ Substitua os placeholders (`https://seudominio.com.br`, `NOME_DO_PRODUTO`, `NOME
 
 ## 4. Template de `public/robots.txt` (SEO + Crawlers de IA)
 
+Escolha a política para `GPTBot` e `ClaudeBot` antes de usar o template. A variante abaixo **permite também o rastreamento para possível treino** pela OpenAI e pela Anthropic. Para manter os bots de busca e bloquear os de treino desses dois provedores, substitua apenas os grupos de `GPTBot` e `ClaudeBot` pelos grupos da segunda variante. Adapte as demais regras ao site; `Google-Extended` e outros controles têm finalidades próprias.
+
 ```txt
 User-agent: *
 Allow: /
@@ -298,7 +300,7 @@ Allow: /
 User-agent: Claude-SearchBot
 Allow: /
 
-User-agent: anthropic-ai
+User-agent: Claude-User
 Allow: /
 
 User-agent: Google-Extended
@@ -312,6 +314,18 @@ Allow: /
 
 Sitemap: https://seudominio.com.br/sitemap.xml
 ```
+
+**Variante: busca permitida, rastreamento para treino da OpenAI e da Anthropic bloqueado.** No template acima, troque somente os dois grupos correspondentes por:
+
+```txt
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+```
+
+Mantenha `OAI-SearchBot` e `Claude-SearchBot` permitidos. `Claude-User` atende consultas iniciadas por usuários; `ChatGPT-User` não define inclusão na busca do ChatGPT. Essas regras expressam a preferência para os bots documentados desses provedores; não garantem que o site será citado nem controlam usos por outros serviços. Fontes: [OpenAI — crawlers](https://developers.openai.com/api/docs/bots) e [Anthropic — crawlers](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler).
 
 ---
 

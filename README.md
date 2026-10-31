@@ -39,11 +39,11 @@ When you ask your agent something like *"improve this site's SEO"*, *"I want to 
 | --- | --- |
 | **1. Technical SEO** | Optimized `<title>` and `description`, `canonical` + `hreflang`, Open Graph, Twitter Cards, `robots.txt` and `sitemap.xml` with image and video entries. |
 | **2. AEO** (*Answer Engine Optimization*) | A single JSON-LD `@graph` connecting `WebSite`, `Person`/`Organization`, `WebPage`, `Product`, `Course`, `VideoObject` and `FAQPage`, plus a semantic `<noscript>` fallback for crawlers that don't run JavaScript. |
-| **3. GEO** (*Generative Engine Optimization*) | `/llms.txt` + `<link rel="help">`, a `/.well-known/ard.json` manifest (Agent Resource Discovery v0.91) and explicit `robots.txt` access for `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot`, `Perplexity-SearchBot`, `ClaudeBot`, `Claude-SearchBot`, `anthropic-ai`, `Google-Extended`, `Applebot-Extended`, `Meta-ExternalAgent` and others. |
+| **3. GEO** (*Generative Engine Optimization*) | `/llms.txt` + `<link rel="help">`, a `/.well-known/ard.json` manifest (Agent Resource Discovery v0.91), and a `robots.txt` choice: allow `OAI-SearchBot` and `Claude-SearchBot` for search while either allowing or blocking `GPTBot` and `ClaudeBot` for potential model training. Other providers' controls remain separate. |
 | **4. Performance & accessibility** | LCP preload with `fetchpriority="high"`, `srcSet`/`sizes` tuned for Lighthouse Mobile's 1.75 DPR, zero TBT (GPU CSS + `IntersectionObserver`, on-demand `Lenis`, isolated timers) and WCAG AA contrast. |
 | **5. Validation** | A script that runs Lighthouse on **Desktop and Mobile** and lists every audit that isn't at full score yet. |
 
-Before changing anything, the agent confirms your **canonical domain** and asks whether you want the **FAQ visible** on the page or only in the structured data.
+Before changing anything, the agent confirms your **canonical domain** and asks whether you want the **FAQ visible** on the page or only in the structured data. When creating or changing `robots.txt`, it also checks your preference for OpenAI and Anthropic training crawlers.
 
 ---
 

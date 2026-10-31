@@ -42,6 +42,8 @@ Antes de alterar o código, confirme (ou extraia do próprio projeto se já esti
 1. **Domínio canônico de produção** (ex.: `https://meusite.com.br/`). Se ainda não houver domínio definido, pergunte ou use um placeholder claro e avise o usuário.
 2. **FAQ Visível vs. Invisível (apenas AEO/GEO)**:
    - Pergunte se o usuário quer a seção de **Perguntas Frequentes (FAQ)** visível no layout da página (`<details>/<summary>`) **ou** apenas invisível nos bastidores (dentro do `@graph` JSON-LD + `llms.txt` + `<noscript>`) para não alterar o design visual.
+3. **Preferência de rastreamento para treino (ao criar ou alterar `robots.txt`)**:
+   - Verifique se o site já definiu uma preferência. Se não houver uma escolha clara, ofereça duas opções: permitir busca e bloquear o rastreamento para treino da OpenAI e da Anthropic; ou permitir também esse rastreamento para treino. Preserve as demais regras do site.
 
 ---
 
@@ -57,8 +59,9 @@ Consulte os templates prontos em [`references/templates.md`](./references/templa
    - `<link rel="canonical" href="https://dominio.com/" />` + `<link rel="alternate" hreflang="pt-BR" ... />` e `x-default`.
    - Open Graph completo (`og:type`, `og:locale`, `og:site_name`, `og:title`, `og:description`, `og:url`, `og:image`, `og:image:width`, `og:image:height`, `og:image:alt`) e Twitter Cards (`summary_large_image`).
 2. **`public/robots.txt` Amigável para Buscadores e IAs**:
-   - Nunca bloqueie bots de busca de IA se o objetivo for GEO. Libere explicitamente (`Allow: /`) para:
-     `Googlebot`, `Google-Extended`, `Bingbot`, `OAI-SearchBot`, `GPTBot`, `ChatGPT-User`, `PerplexityBot`, `Perplexity-SearchBot`, `ClaudeBot`, `Claude-SearchBot`, `anthropic-ai`, `Applebot-Extended`, `Meta-ExternalAgent`.
+   - Para manter a possibilidade de aparecer nas buscas do ChatGPT e do Claude, permita `OAI-SearchBot` e `Claude-SearchBot`. `Claude-User` pode buscar páginas em resposta a pedidos de usuários; `ChatGPT-User` também é acionado por usuários, mas não controla a inclusão na busca do ChatGPT.
+   - `GPTBot` e `ClaudeBot` são os bots documentados para possível uso do conteúdo em treino. Se o usuário optar por bloquear esse rastreamento, use grupos próprios com `Disallow: /` para ambos, sem bloquear os bots de busca. Se optar por permiti-lo, use `Allow: /` para ambos. Veja as duas variantes em [`references/templates.md`](./references/templates.md).
+   - Trate controles de outros provedores, como `Google-Extended`, separadamente. Permitir acesso aos bots de busca aumenta a elegibilidade, mas não garante citação ou presença nas respostas. Consulte as [orientações da OpenAI](https://developers.openai.com/api/docs/bots) e da [Anthropic](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) ao atualizar a lista de bots.
    - Aponte `Sitemap: https://dominio.com/sitemap.xml`.
 3. **`public/sitemap.xml` Rico (Imagens + Vídeo)**:
    - Inclua os namespaces `xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"` e `xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"` quando houver imagens de destaque e vídeo de vendas/apresentação.
